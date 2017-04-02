@@ -1,0 +1,31 @@
+<html>
+    <body>
+        <div id="test">
+        </div>
+        <div id="heart">
+            <div id="heart-left" style='float:left;margin-right: 1px;'>
+         </div>
+         <div id="heart-right" style='float:left'>
+         </div>
+        </div>
+
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="../dist/bundle.js"></script>
+        <script>
+         
+         d3.iconGraph('#heart-left').properties({'emptyGraph': 'LeftHeartEmpty.png',
+                                                 'fullGraph': 'LeftHeartFull.png',
+                                                 'width': '52px',
+                                                 'height': '95px',
+                                                 'percent': 90
+                                                });
+
+        d3.iconGraph('#heart-right').properties({'emptyGraph': 'RightHeartEmpty.png',
+                                                 'fullGraph': 'RightHeartFull.png',
+                                                 'width': '52px',
+                                                 'height': '95px',
+                                                 'percent': 60
+                                               });
+            </script>
+    </body>
+</html>
