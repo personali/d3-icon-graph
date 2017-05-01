@@ -1,31 +1,70 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+
+    </head>
     <body>
-        <div id="test">
-        </div>
-        <div id="heart">
-            <div id="heart-left" style='float:left;margin-right: 1px;'>
-         </div>
-         <div id="heart-right" style='float:left'>
-         </div>
+        <div class="container-fluid">
+            <div class="row" style="margin-left:300px;">
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Loyalty</div>
+                        <div class="panel-body" style="text-align: center;">
+                            <p>Lorem ipsum</p>
+                            <div id="heart" style="display:inline-block;">
+                                <div id="heart-left" style="float:left;margin-right:1px;"></div>
+                                <div id="heart-right" style="float:left"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    some content
+                </div>
+
+                <div class="col-md-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">ARPU</div>
+                        <div class="panel-body">
+                            <div id="beaker"></div>
+                          </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="../dist/bundle.js"></script>
         <script>
-         
-         d3.iconGraph('#heart-left').properties({'emptyGraph': 'LeftHeartEmpty.png',
-                                                 'fullGraph': 'LeftHeartFull.png',
-                                                 'width': '52px',
-                                                 'height': '95px',
-                                                 'percent': 90
-                                                });
+            d3.iconGraph('#heart-left').properties({
+                'emptyGraph': 'LeftHeartEmpty.png',
+                'fullGraph': 'LeftHeartFull.png',
+                'width': '52px',
+                'height': '95px',
+                'percent': 88
+            });
 
-        d3.iconGraph('#heart-right').properties({'emptyGraph': 'RightHeartEmpty.png',
-                                                 'fullGraph': 'RightHeartFull.png',
-                                                 'width': '52px',
-                                                 'height': '95px',
-                                                 'percent': 60
-                                               });
-            </script>
+            d3.iconGraph('#heart-right').properties({
+                'emptyGraph': 'RightHeartEmpty.png',
+                'fullGraph': 'RightHeartFull.png',
+                'width': '52px',
+                'height': '95px',
+                'percent': 60
+            });
+
+            d3.iconGraph("#beaker").properties({
+                'emptyGraph': 'bag.png',
+                'fullGraph': 'full-bag.png',
+                'width': '119px',
+                'height': '141px',
+                'percent': 40
+            })
+        </script>
     </body>
 </html>
