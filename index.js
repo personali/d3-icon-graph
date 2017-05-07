@@ -22,7 +22,7 @@ global.d3.iconGraph = function(selector){
 
            var height = parseFloat(properties.height.replace( /^\D+/g, ''))*(1 - (properties.percent/100));
 
-           var t = d3.transition().duration(2000);
+           var t = d3.transition().duration(1500);
            d3graph.transition(t).style('clip','rect(' + height + 'px ' + properties.width + ' ' + properties.height + ' 0px)');
        }
    };
@@ -30,4 +30,55 @@ global.d3.iconGraph = function(selector){
     return iconGraph;
 }
 
+
+global.d3.barGraph = function(selector) {
+  var element = d3.select(selector)
+
+  var barGraph = {
+    properties: function(props) {
+      var yScale = d3.scaleLinear()
+        .domain([0, d3.max(props.data) + 5])
+        .range([0, props.height]);
+
+      var xScale = d3.scaleBand()
+        .domain(d3.range(0, props.data.length))
+        .padding(0.2)
+        .range([0, props.width]);
+
+      var myChart = element.append('svg')
+          .attr('width', props.width)
+          .attr('height', props.height)
+          .append('g')
+          .style('background', '#C9D7D6')
+          .selectAll('rect')
+          .data(props.data)
+          .enter()
+          .append('rect')
+          .style('fill', function(d, i) {
+              return props.colors[i]; // color(i);
+          })
+          .attr('width', xScale.bandwidth())
+          .attr('x', function(d, i) {
+              return xScale(i);
+          })
+          .attr('height', 0)
+          .attr('y', props.height);
+
+      myChart.transition()
+          .attr('height', function(d){
+              return yScale(d);
+          })
+          .attr('y', function(d){
+              return props.height - yScale(d);
+          })
+          .delay(function(d, i){
+              return i * 20;
+          })
+          .duration(1000)
+          .ease(d3.easeElastic)
+    }
+  }
+
+  return barGraph;
+}
 
