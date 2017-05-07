@@ -50,6 +50,28 @@
                 text-align: center;
             }
 
+            .circle {
+                display: inline-table;
+                height:70px;
+                width:70px;
+                border-radius:100%;
+                margin-left: 5px;
+                margin-top: 5px;
+            }
+
+            .circle p {
+                display: table-cell;
+                vertical-align: middle;
+                text-align: center;
+                font-size: 1.4em;
+
+            }
+
+            .friend {
+                border: 1px solid #8899aa;
+                /* 2px dashed #008000; */
+            }
+
         </style>
         <script type="text/javascript" src="../node_modules/canvas-gauges/gauge.min.js"></script>
     </head>
@@ -70,15 +92,27 @@
                             <p style="color:#b2b2b2;padding-bottom:10px">The percentage of purchases from unique visitors.</p>
                             <canvas id="gauge-id"></canvas>
                         </div>
-                        <div class="panel-footer reports-panel-footer"><b>Tip:</b> Drive your users to complete more purchases. Learn How.</div>
+                        <div class="panel-footer reports-panel-footer"><b>Tip:</b> Drive your users to complete more purchases. <a href="#">Learn How.</a></div>
                     </div>
 
                     <div class="panel panel-default">
                         <div class="panel-heading reports-panel-heading"><div class="pull-left" style="margin-right:10px;"><img src="assets/ARPU_icon.jpg" /></div>ARPU<div class="pull-right"><img src="assets/info_icon.jpg" /></div></div>
                         <div class="panel-body" style="text-align: center;">
                             <p style="color:#b2b2b2;">Average revenue per unique visitor</p>
+                            <div id="figure" style="display:inline-block;">
+                                <div id="figure-left" style="float:left;margin-right:1px;"></div>
+                                <div id="figure-right" style="float:left"></div>
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="circle friend">
+                                <p style="color:#6ab414">$1.4</p>
+                            </div>
+                            <div class="circle friend">
+                                <p>$0.9</p>
+                            </div>
                         </div>
-                        <div class="panel-footer reports-panel-footer"><b>Tip:</b> Increase your visitor's spend on the site. Learn How</div>
+                        <div class="panel-footer reports-panel-footer"><b>Tip:</b> Increase your visitor's spend on the site. <a href="#">Learn How</a></div>
                     </div>
 
                     <div class="panel panel-default">
@@ -245,6 +279,22 @@
                 'fullGraph': 'assets/RightHeartFull.png',
                 'width': '52px',
                 'height': '95px',
+                'percent': 60
+            });
+
+            d3.iconGraph('#figure-left').properties({
+                'emptyGraph': 'assets/ARPU_empty_left.jpg',
+                'fullGraph': 'assets/ARPU_full_left.jpg',
+                'width': '78px',
+                'height': '105px',
+                'percent': 88
+            });
+
+            d3.iconGraph('#figure-right').properties({
+                'emptyGraph': 'assets/ARPU_empty_right.jpg',
+                'fullGraph': 'assets/ARPU_full_right.jpg',
+                'width': '78px',
+                'height': '105px',
                 'percent': 60
             });
 
