@@ -5,79 +5,53 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
-        <style> /* set the CSS */
-            .line {
-              fill: none;
-              stroke: steelblue;
-              stroke-width: 2px;
-            }
-
-            .grid line {
-              stroke: lightgrey;
-              stroke-opacity: 0.7;
-              shape-rendering: crispEdges;
-            }
-
-            .grid path {
-              stroke-width: 0;
-            }
-
-            .progress-meter text {
-                font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
-                font-size: 24px;
-                font-weight: bold;
-            }
-
-            #discount-volume-rate-chart div {
-              font: 10px sans-serif;
-              text-align: right;
-              padding: 3px;
-              margin: 1px;
-              color: white;
-            }
-
-            .panel-default>.reports-panel-heading,
-            .reports-panel-footer {
-                background-color: #fff;
-            }
-
-            .panel-default>.reports-panel-heading {
-                color:#111111;
-            }
-
-            .reports-panel-footer {
-                color:#b2b2b2;
-                text-align: center;
-            }
-
-            .circle {
-                display: inline-table;
-                height:70px;
-                width:70px;
-                border-radius:100%;
-                margin-left: 5px;
-                margin-top: 5px;
-            }
-
-            .circle p {
-                display: table-cell;
-                vertical-align: middle;
-                text-align: center;
-                font-size: 1.4em;
-
-            }
-
-            .friend {
-                border: 1px solid #8899aa;
-                /* 2px dashed #008000; */
-            }
-
-        </style>
+        <link rel="stylesheet" href="styles.css" />
         <script type="text/javascript" src="../node_modules/canvas-gauges/gauge.min.js"></script>
     </head>
+
     <body>
-        <div class="container-fluid">
-            <div class="row" style="margin-left:200px;">
+
+    <div id="wrapper" class="toggled">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Start Bootstrap
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Shortcuts</a>
+                </li>
+                <li>
+                    <a href="#">Overview</a>
+                </li>
+                <li>
+                    <a href="#">Events</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#">Services</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+          <div class="container-fluid">
+
+            <div class="row" style="margin:0px auto; max-width:1280px">
                 <div class="col-md-3">
                     <div class="panel panel-default">
                         <div class="panel-body" style="text-align:center;background-color: #ff5522">
@@ -99,17 +73,25 @@
                         <div class="panel-heading reports-panel-heading"><div class="pull-left" style="margin-right:10px;"><img src="assets/ARPU_icon.jpg" /></div>ARPU<div class="pull-right"><img src="assets/info_icon.jpg" /></div></div>
                         <div class="panel-body" style="text-align: center;">
                             <p style="color:#b2b2b2;">Average revenue per unique visitor</p>
-                            <div id="figure" style="display:inline-block;">
-                                <div id="figure-left" style="float:left;margin-right:1px;"></div>
+                            <div id="figure" style="display:inline-block;margin:10px 0;">
+                                <div id="figure-left" style="float:left;margin-right:35px;"></div>
                                 <div id="figure-right" style="float:left"></div>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="clearfix"></div>
-
-                            <div class="circle friend">
-                                <p style="color:#6ab414">$1.4</p>
-                            </div>
-                            <div class="circle friend">
-                                <p>$0.9</p>
+                            <div style="display:inline-block;">
+                                <div style="float:left;margin-right: 19px">
+                                    <div class="circle friend">
+                                        <p style="color:#6ab414">$1.4</p>
+                                    </div><br/>
+                                    Your Avg
+                                </div>
+                                <div style="float:left;">
+                                    <div class="circle friend">
+                                        <p>$0.9</p>
+                                    </div><br/>
+                                    Industry Avg
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
                         </div>
                         <div class="panel-footer reports-panel-footer"><b>Tip:</b> Increase your visitor's spend on the site. <a href="#">Learn How</a></div>
@@ -119,19 +101,21 @@
                         <div class="panel-heading reports-panel-heading"><div class="pull-left" style="margin-right:10px;"><img src="assets/Loyalty_icon.jpg" /></div>Loyalty<div class="pull-right"><img src="assets/info_icon.jpg" /></div></div>
                         <div class="panel-body" style="text-align: center;">
                             <p style="color:#b2b2b2;">Percentage of signed in visitors</p>
-                            <div id="heart" style="display:inline-block;">
+                            <div id="heart" style="display:inline-block;margin-top:10px">
                                 <div id="heart-left" style="float:left;margin-right:1px;"></div>
                                 <div id="heart-right" style="float:left"></div>
                             </div>
-                            <div class="clearfix"></div>
-                            <div style="float:left;width:50%"><p style="font-size:2em;">23%</p>Your Avg</div>
-                            <div style="float:left;width:50%"><p style="font-size:2em;">30%</p>Industry Avg</div>
+                            <div  class="clearfix"></div>
+                            <div style="padding:20px 0;">
+                                <div style="float:left;width:50%;text-align:right;padding:10px;border-right:1px solid #b2b2b2;line-height:1.2em"><p style="font-size:2em;">23%</p>Your Avg</div>
+                                <div style="float:left;width:50%;text-align:left;padding:10px;line-height:1.2em"><p style="font-size:2em;">30%</p>Industry Avg</div>
+                            </div>
                         </div>
-                        <div class="panel-footer reports-panel-footer"><b>Tip:</b> Encourage your visitor's loyalty. Learn How</div>
+                        <div class="panel-footer reports-panel-footer"><b>Tip:</b> Encourage your visitor's loyalty. <a href="#">Learn How</a></div>
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="panel panel-default">
                         <div class="panel-heading reports-panel-heading"><div class="pull-left" style="margin-right:10px;"><img src="assets/funnel_icon.jpg" /></div>Sales Funnel<div class="pull-right"><img src="assets/info_icon.jpg" /></div></div>
                         <div class="panel-body" style="position:relative">
@@ -176,14 +160,27 @@
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading reports-panel-heading"><div class="pull-left" style="margin-right:10px;"><img src="assets/avg_products_icon.jpg" /></div>Average Products Per Order<div class="pull-right"><img src="assets/info_icon.jpg" /></div></div>
-                        <div class="panel-body">
-                            <div id=""></div>
+                        <div class="panel-body" style="text-align: center">
+                            <p style="color:#b2b2b2;text-align:center;padding-bottom:10px">The average amount of unique products per order.</p>
+                            <div style="display:inline-block;">
+                                <div id="avg-product-per-order" style="float:left;">
+                                    <div id="avg-product-per-order-left" style="float:left;"></div>
+                                    <div id="avg-product-per-order-right" style="float:left;"></div>
+                                </div>
+                                <div style="float:left;margin-left:10px;">
+                                    <div style="float:left;padding:15px;border-right:1px solid #b2b2b2"><span style="font-size:2em;">1.30</span><br/>Your Avg</div>
+                                    <div style="float:left;padding:15px"><span style="font-size:2em;">2.30</span><br/>Industry Avg</div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
                         </div>
+                        <div class="panel-footer reports-panel-footer" style="text-align: center;"><b>Tip:</b> Increase your average number of products per order. <a href="#">Learn How</a></div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading reports-panel-heading">Incentives Distribution<div class="pull-right"><img src="assets/info_icon.jpg" /></div></div>
+                        <div class="panel-heading reports-panel-heading">Incentives Distribution<div class="pull-right"><img src="assets/info_icon.jpg" /></div>
+                        </div>
                         <div class="panel-body">
-                            <div id=""></div>
+                            <div id="donut-chart" style="text-align: center;"></div>
                         </div>
                     </div>
                 </div>
@@ -209,8 +206,8 @@
 
                                 </div>
                                 <div style="float:left;margin-left:15px">
-                                    <div><span style="font-size:1.7em;color:#6ab414">12.20%</span><br/><span>Your Avg <br/>discount</span><br/><span>Which sums<br/> up to </span><span>$1.2M</span></div>
-                                    <div><span style="font-size:1.7em;">24.05%</span><br/><span>Industry Avg<br/>Discount</span></div>
+                                    <div><span style="font-size:1.7em;color:#6ab414">12.20%</span><p>Your Avg<br/>discount</p><p><span>Which sums<br/> up to </span><span>$1.2M</span></p></div>
+                                    <div><span style="font-size:1.7em;">24.05%</span><p><span>Industry Avg<br/>Discount</span></p></div>
                                 </div>
                                 <div class="clearfix"></div>
                             </div>
@@ -223,7 +220,7 @@
                         <div class="panel-body">
                             <p style="color:#b2b2b2;text-align:center;padding-bottom:10px">Percentage of discounted orders</p>
                             <div style="min-width:290px">
-                                <div style="height:178px;width:150px;float:left">
+                                <div style="height:178px;width:140px;float:left">
                                     <div id="discount-volume-rate-chart" style="float:right;"></div>
                                     <div style="height:50%;border-top:1px solid #b2b2b2;text-align:left;font-size:0.8em">50%</div>
                                     <div style="height:50%;border-top:1px solid #b2b2b2;border-bottom:1px solid #b2b2b2;text-align:left;font-size:0.8em">25%</div>
@@ -240,7 +237,7 @@
                         <div class="panel-body">
                             <p style="color:#b2b2b2;text-align:center;padding-bottom:10px">Average order value</p>
                             <div style="min-width:290px">
-                                <div style="height:178px;width:150px;float:left">
+                                <div style="height:178px;width:140px;float:left">
                                     <div id="aov-chart" style="float:right;"></div>
                                     <div style="height:33%;border-top:1px solid #b2b2b2;text-align:left;font-size:0.8em">$225</div>
                                     <div style="height:33%;border-top:1px solid #b2b2b2;text-align:left;font-size:0.8em">$120</div>
@@ -254,14 +251,32 @@
                         </div>
                     </div>
                     <div class="panel panel-default">
-                        <div class="panel-heading reports-panel-heading"><div class="pull-left" style="margin-right:10px;"><img src="assets/abandonment_icon.jpg" /></div>Shopping <br />Abandonment Rate<div class="pull-right"><img src="assets/info_icon.jpg" /></div></div>
-                        <div class="panel-body">
-                            <div id=""></div>
+                        <div class="panel-heading reports-panel-heading">
+                            <div class="pull-left" style="margin-right:10px;"><img src="assets/abandonment_icon.jpg" /></div>
+                            <div class="pull-left">Shopping <br />Abandonment Rate</div>
+                            <div class="pull-right"><img src="assets/info_icon.jpg" /></div>
+                            <div class="clearfix"></div>
                         </div>
+                        <div class="panel-body">
+                             <p style="color:#b2b2b2;text-align:center;padding-bottom:10px">Percentage of carts that didn't <br/>end up as orders.</p>
+                             <div>
+                             </div>
+                            <div id="" style="margin:10px 0;">
+                                <div id="shopping-abandonment-chart-left" style="float:left;"></div>
+                                <div id="shopping-abandonment-chart-right" style="float:left;"></div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="panel-footer reports-panel-footer"><b>Tip:</b> You can reduce your cart abandonment rate. <a href="#">Learn How</a></div>
                     </div>
                 </div>
             </div>
+          </div>
         </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
 
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="../dist/bundle.js"></script>
@@ -283,18 +298,18 @@
             });
 
             d3.iconGraph('#figure-left').properties({
-                'emptyGraph': 'assets/ARPU_empty_left.jpg',
-                'fullGraph': 'assets/ARPU_full_left.jpg',
-                'width': '78px',
-                'height': '105px',
+                'emptyGraph': 'assets/ARPUU_empty_new.jpg',
+                'fullGraph': 'assets/ARPUU_full_blue_new.jpg',
+                'width': '59px',
+                'height': '123px',
                 'percent': 88
             });
 
             d3.iconGraph('#figure-right').properties({
-                'emptyGraph': 'assets/ARPU_empty_right.jpg',
-                'fullGraph': 'assets/ARPU_full_right.jpg',
-                'width': '78px',
-                'height': '105px',
+                'emptyGraph': 'assets/ARPUU_empty_new.jpg',
+                'fullGraph': 'assets/ARPUU_full_grey_new.jpg',
+                'width': '59px',
+                'height': '123px',
                 'percent': 60
             });
 
@@ -314,13 +329,36 @@
                 'percent': 50
             });
 
+            d3.iconGraph('#avg-product-per-order-left').properties({
+                'emptyGraph': 'assets/average_products_left_empty.jpg',
+                'fullGraph': 'assets/average_products_left_full.jpg',
+                'width': '43px',
+                'height': '106px',
+                'percent': 70
+            });
 
-            d3.iconGraph("#beaker").properties({
-                'emptyGraph': 'assets/bag.png',
-                'fullGraph': 'assets/full-bag.png',
-                'width': '119px',
-                'height': '141px',
-                'percent': 40
+            d3.iconGraph('#avg-product-per-order-right').properties({
+                'emptyGraph': 'assets/average_products_right_empty.jpg',
+                'fullGraph': 'assets/average_products_right_full.jpg',
+                'width': '99px',
+                'height': '106px',
+                'percent': 100
+            });
+
+            d3.iconGraph('#shopping-abandonment-chart-left').properties({
+                'emptyGraph': 'assets/shopping_abandonment_empty_left.jpg',
+                'fullGraph': 'assets/shopping_abandonment_full_left.jpg',
+                'width': '102px',
+                'height': '122px',
+                'percent': 70
+            });
+
+            d3.iconGraph('#shopping-abandonment-chart-right').properties({
+                'emptyGraph': 'assets/shopping_abandonment_empty_right.jpg',
+                'fullGraph': 'assets/shopping_abandonment_full_right.jpg',
+                'width': '33px',
+                'height': '122px',
+                'percent': 90
             });
 
             d3.barGraph('#discount-volume-rate-chart').properties({
@@ -337,39 +375,28 @@
                 'data': [100, 200]
             });
 
-            var format = d3.format(",d");
-            d3.select("span#unique-visitors")
-              .transition()
-              .duration(1000)
-              .tween("text", function() {
-                var that = d3.select(this),
-                  i = d3.interpolateNumber(1, 1125225);
-                  return function(t) {
-                    that.text(format(i(t)));
-                  };
-              });
+            d3.scoreCard("div#content").properties({});
 
-            d3.select("span#unique-added")
-              .transition()
-              .duration(1000)
-              .tween("text", function() {
-                var that = d3.select(this),
-                  i = d3.interpolateNumber(1, 1250);
-                  return function(t) {
-                    that.text(format(i(t)));
-                  };
-              });
+            d3.countUp("span#unique-visitors").properties({
+                format: ",d",
+                start: 1,
+                end: 1125225,
+                duration: 1000
+            });
 
-            d3.select("span#unique-purchases")
-              .transition()
-              .duration(1000)
-              .tween("text", function() {
-                var that = d3.select(this),
-                  i = d3.interpolateNumber(1, 1875);
-                  return function(t) {
-                    that.text(format(i(t)));
-                  };
-              });
+            d3.countUp("span#unique-added").properties({
+                format: ",d",
+                start: 1,
+                end: 1250,
+                duration: 1000
+            });
+
+            d3.countUp("span#unique-purchases").properties({
+                format: ",d",
+                start: 1,
+                end: 1875,
+                duration: 1000
+            });
 
             // BEGIN Conversion Radial Gauge
              var gauge = new RadialGauge({
@@ -411,110 +438,46 @@
             gauge.value = 2
             // END Conversion Radial Gauge
 
-            // BEGIN Your Overall Score Radial Gauge
-            var colors = {
-                'pink': '#E1499A',
-                'yellow': '#f0ff08',
-                'green': '#47e495'
-            };
 
-            var color = '#ffffff';
+            var dataset = [
+              { label: 'Abulia', count: 10 },
+              { label: 'Betelgeuse', count: 20 },
+              { label: 'Cantaloupe', count: 30 },
+              { label: 'Dijkstra', count: 40 }
+            ];
 
-            var radius = 75;
-            var border = 5;
-            var padding = 3;
-            var startPercent = 0;
-            var endPercent = 0.53;
+            var width = 160;
+            var height = 160;
+            var radius = Math.min(width, height) / 2;
+            var donutWidth = 40; // NEW
 
-            var twoPi = Math.PI * 2;
-            var formatPercent = d3.format('.0%');
-            var formatNumber = d3.format('0');
-            var boxSize = (radius + padding) * 2;
+            var color = d3.scaleOrdinal(['#16315c', '#6bc7f8', '#316bb5']); // d3.schemeCategory20b
 
-            var count = Math.abs((endPercent - startPercent) / 0.01);
-            var step = endPercent < startPercent ? -0.01 : 0.01;
-
-            var parent = d3.select('div#content');
-
-            var svg = parent.append('svg')
-                .attr('width', boxSize)
-                .attr('height', boxSize);
+            var svg = d3.select('div#donut-chart')
+              .append('svg')
+              .attr('width', width)
+              .attr('height', height)
+              .append('g')
+              .attr('transform', 'translate(' + (width / 2) +
+                ',' + (height / 2) + ')');
 
             var arc = d3.arc()
-                .startAngle(0)
-                .innerRadius(radius)
-                .outerRadius(radius - border);
+              .innerRadius(radius - donutWidth)             // UPDATED
+              .outerRadius(radius);
 
-            var defs = svg.append('defs');
+            var pie = d3.pie()
+              .value(function(d) { return d.count; })
+              .sort(null)
+              .padAngle(.02);
 
-            var filter = defs.append('filter')
-                .attr('id', 'blur');
-
-            /*
-            filter.append('feGaussianBlur')
-                .attr('in', 'SourceGraphic')
-                .attr('stdDeviation', '7');
-            */
-
-            var g = svg.append('g')
-                .attr('transform', 'translate(' + boxSize / 2 + ',' + boxSize / 2 + ')');
-
-            var meter = g.append('g')
-                .attr('class', 'progress-meter');
-
-            meter.append('path')
-                .attr('class', 'background')
-                .attr('fill', '#ccc')
-                .attr('fill-opacity', 0.5)
-                .attr('d', arc.endAngle(twoPi));
-
-            var foreground = meter.append('path')
-                .attr('class', 'foreground')
-                .attr('fill', color)
-                .attr('fill-opacity', 1)
-                .attr('stroke', color)
-                .attr('stroke-width', 5)
-                .attr('stroke-opacity', 1)
-                .attr('filter', 'url(#blur)');
-
-            var front = meter.append('path')
-                .attr('class', 'foreground')
-                .attr('fill', color)
-                .attr('fill-opacity', 1);
-
-            var numberText = meter.append('text')
-                .attr('fill', '#fff')
-                .attr('text-anchor', 'middle')
-                .style("font-size", "3em")
-                .attr('dy', '-.10em');
-
-            var justText = meter.append('text')
-                .attr('fill', '#fff')
-                .attr('text-anchor', 'middle')
-                .attr('dy', '1.0em')
-                .text('Out of 100')
-                .style("font-size", "1.5em");
-
-            function updateProgress(progress) {
-                foreground.attr('d', arc.endAngle(twoPi * progress));
-                front.attr('d', arc.endAngle(twoPi * progress));
-                numberText.text(formatNumber(progress*100));
-            }
-
-            var progress = startPercent;
-
-            (function loops() {
-                updateProgress(progress);
-
-                if (count > 0) {
-                    count--;
-                    progress += step;
-                    setTimeout(loops, 10);
-                }
-            })();
-            // END Your Overall Score Radial Guage
-
-
+            var path = svg.selectAll('path')
+              .data(pie(dataset))
+              .enter()
+              .append('path')
+              .attr('d', arc)
+              .attr('fill', function(d, i) {
+                return color(d.data.label);
+              });
 
 
         </script>
