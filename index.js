@@ -2,32 +2,42 @@ global.d3.iconGraph = function(selector){
    var element = d3.select(selector);
 
    var iconGraph = {
-       properties: function(properties){
-           if(!properties.percent)
-               properties.percent = 100;
+       draw: function(){
+           if(!this.percent)
+              this.percent = 100;
 
-           element.style('background', 'url(' + properties.emptyGraph + ')')
-               .style('width', properties.width)
-               .style('position', 'relative')
-               .style('height', properties.height);
+           if(!this.duration)
+              this.duration = 1500;
 
+           if (this.width && this.height) {
+             element
+                 .style('width', this.width)
+                 .style('position', 'relative')
+                 .style('height', this.height);
 
-           var d3graph = element.append('div');
-           d3graph.style('background','url('+ properties.fullGraph +')');
-           d3graph.style('width', properties.width);
-           d3graph.style('height', properties.height);
-           d3graph.style('position', 'absolute');
-           d3graph.style('z-index', '1000');
-           d3graph.style('clip','rect(' + properties.height + ' ' + properties.width + ' ' + properties.height + ' 0px)');
+             var d3graph = element.append('div');
+             d3graph.style('width', this.width)
+             .style('height', this.height)
+             .style('position', 'absolute')
+             .style('z-index', '1000')
+             .style('clip','rect(' + this.height + ' ' + this.width + ' ' + this.height + ' 0px)');
+           }
 
-           var height = parseFloat(properties.height.replace( /^\D+/g, ''))*(1 - (properties.percent/100));
+           if (this.emptyGraph) element.style('background', 'url(' + this.emptyGraph + ')');
 
-           var t = d3.transition().duration(1500);
-           d3graph.transition(t).style('clip','rect(' + height + 'px ' + properties.width + ' ' + properties.height + ' 0px)');
+           if (this.fullGraph) d3graph.style('background','url('+ this.fullGraph +')');
+       },
+       animate: function() {
+           var height = parseFloat(this.height.replace( /^\D+/g, ''))*(1 - (this.percent/100));
+           var t = d3.transition().ease(d3.easeBounce).duration(this.duration);
+
+           var d3graph = element.select('div');
+           d3graph.transition(t)
+            .style('clip','rect(' + height + 'px ' + this.width + ' ' + this.height + ' 0px)');
        }
    };
 
-    return iconGraph;
+  return iconGraph;
 }
 
 
@@ -36,6 +46,9 @@ global.d3.barGraph = function(selector) {
 
   var barGraph = {
     properties: function(props) {
+      if(!props.duration)
+         props.duration = 1500;
+
       var yScale = d3.scaleLinear()
         .domain([0, d3.max(props.data) + 5])
         .range([0, props.height]);
@@ -74,7 +87,7 @@ global.d3.barGraph = function(selector) {
           .delay(function(d, i){
               return i * 20;
           })
-          .duration(1000)
+          .duration(props.duration)
           .ease(d3.easeElastic)
     }
   }
@@ -86,105 +99,111 @@ global.d3.barGraph = function(selector) {
 global.d3.scoreCard = function(selector) {
     var element = d3.select(selector)
 
+    var colors = {
+        'pink': '#E1499A',
+        'yellow': '#f0ff08',
+        'green': '#47e495'
+    };
+
+    var color = '#ffffff';
+
+    var radius = 75;
+    var border = 5;
+    var padding = 3;
+    var startPercent = 0.01;
+    var endPercent = 0.53;
+
+    var twoPi = Math.PI * 2;
+    var formatPercent = d3.format('.0%');
+    var formatNumber = d3.format('0');
+    var boxSize = (radius + padding) * 2;
+
+    var count = Math.abs((endPercent - startPercent) / 0.01);
+    var step = endPercent < startPercent ? -0.01 : 0.01;
+
+    var parent = element;
+
+    var svg = parent.append('svg')
+        .attr('width', boxSize)
+        .attr('height', boxSize);
+
+    var arc = d3.arc()
+        .startAngle(0)
+        .innerRadius(radius)
+        .outerRadius(radius - border);
+
+    var defs = svg.append('defs');
+
+    var filter = defs.append('filter')
+        .attr('id', 'blur');
+
+    /*
+    filter.append('feGaussianBlur')
+        .attr('in', 'SourceGraphic')
+        .attr('stdDeviation', '7');
+    */
+
+    var g = svg.append('g')
+        .attr('transform', 'translate(' + boxSize / 2 + ',' + boxSize / 2 + ')');
+
+    var meter = g.append('g')
+        .attr('class', 'progress-meter');
+
+    meter.append('path')
+        .attr('class', 'background')
+        .attr('fill', '#ccc')
+        .attr('fill-opacity', 0.5)
+        .attr('d', arc.endAngle(twoPi));
+
+    var foreground = meter.append('path')
+        .attr('class', 'foreground')
+        .attr('fill', color)
+        .attr('fill-opacity', 1)
+        .attr('stroke', color)
+        .attr('stroke-width', 5)
+        .attr('stroke-opacity', 1)
+        .attr('filter', 'url(#blur)');
+
+    var front = meter.append('path')
+        .attr('class', 'foreground')
+        .attr('fill', color)
+        .attr('fill-opacity', 1);
+
+    var numberText = meter.append('text')
+        .attr('fill', '#fff')
+        .attr('text-anchor', 'middle')
+        .style("font-size", "3em")
+        .attr('dy', '-.10em');
+
+    var justText = meter.append('text')
+        .attr('fill', '#fff')
+        .attr('text-anchor', 'middle')
+        .attr('dy', '1.0em')
+        .text('Out of 100')
+        .style("font-size", "1.5em");
+
+    var progress = startPercent;
+
+    numberText.text(formatNumber(0));
+
     var scoreCard = {
       properties: function(props) {
-        var colors = {
-            'pink': '#E1499A',
-            'yellow': '#f0ff08',
-            'green': '#47e495'
-        };
 
-        var color = '#ffffff';
+      },
 
-        var radius = 75;
-        var border = 5;
-        var padding = 3;
-        var startPercent = 0;
-        var endPercent = 0.53;
-
-        var twoPi = Math.PI * 2;
-        var formatPercent = d3.format('.0%');
-        var formatNumber = d3.format('0');
-        var boxSize = (radius + padding) * 2;
-
-        var count = Math.abs((endPercent - startPercent) / 0.01);
-        var step = endPercent < startPercent ? -0.01 : 0.01;
-
-        var parent = element;
-
-        var svg = parent.append('svg')
-            .attr('width', boxSize)
-            .attr('height', boxSize);
-
-        var arc = d3.arc()
-            .startAngle(0)
-            .innerRadius(radius)
-            .outerRadius(radius - border);
-
-        var defs = svg.append('defs');
-
-        var filter = defs.append('filter')
-            .attr('id', 'blur');
-
-        /*
-        filter.append('feGaussianBlur')
-            .attr('in', 'SourceGraphic')
-            .attr('stdDeviation', '7');
-        */
-
-        var g = svg.append('g')
-            .attr('transform', 'translate(' + boxSize / 2 + ',' + boxSize / 2 + ')');
-
-        var meter = g.append('g')
-            .attr('class', 'progress-meter');
-
-        meter.append('path')
-            .attr('class', 'background')
-            .attr('fill', '#ccc')
-            .attr('fill-opacity', 0.5)
-            .attr('d', arc.endAngle(twoPi));
-
-        var foreground = meter.append('path')
-            .attr('class', 'foreground')
-            .attr('fill', color)
-            .attr('fill-opacity', 1)
-            .attr('stroke', color)
-            .attr('stroke-width', 5)
-            .attr('stroke-opacity', 1)
-            .attr('filter', 'url(#blur)');
-
-        var front = meter.append('path')
-            .attr('class', 'foreground')
-            .attr('fill', color)
-            .attr('fill-opacity', 1);
-
-        var numberText = meter.append('text')
-            .attr('fill', '#fff')
-            .attr('text-anchor', 'middle')
-            .style("font-size", "3em")
-            .attr('dy', '-.10em');
-
-        var justText = meter.append('text')
-            .attr('fill', '#fff')
-            .attr('text-anchor', 'middle')
-            .attr('dy', '1.0em')
-            .text('Out of 100')
-            .style("font-size", "1.5em");
-
+      animate: function() {
         function updateProgress(progress) {
             foreground.attr('d', arc.endAngle(twoPi * progress));
             front.attr('d', arc.endAngle(twoPi * progress));
             numberText.text(formatNumber(progress*100));
         }
 
-        var progress = startPercent;
-
         (function loops() {
             updateProgress(progress);
             if (count > 0) {
                 count--;
                 progress += step;
-                setTimeout(loops, 10);
+                setTimeout(loops, 20);
             }
         })();
       }
@@ -198,6 +217,9 @@ global.d3.countUp = function(selector) {
 
   var countUp = {
     properties: function(props) {
+      if(!props.duration)
+        props.duration = 1500;
+
       var format = d3.format(props.format);
       element
         .transition()
