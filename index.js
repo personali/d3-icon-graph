@@ -56,7 +56,7 @@ global.d3.iconGraph = function(selector){
        },
        animate: function() {
            var height = parseFloat(this.height.replace( /^\D+/g, ''))*(1 - (this.percent/100));
-           var t = d3.transition().ease(d3.easeBounce).duration(this.duration);
+           var t = d3.transition().ease(d3.easeQuadOut).duration(this.duration);
 
            var d3graph = element.select('div');
            d3graph.transition(t)
@@ -121,7 +121,7 @@ global.d3.barGraph = function(selector) {
               return i * 20;
           })
           .duration(props.duration)
-          .ease(d3.easeElastic)
+          .ease(d3.easeQuadOut)
     }
   }
 
