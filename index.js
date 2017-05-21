@@ -1,3 +1,26 @@
+function toolTip(el) {
+    var tooltip = d3.select("div.d3-tooltip");
+
+    if (tooltip.empty()) tooltip = d3.select("body").append("div")
+            .attr("class", "d3-tooltip")
+            .style("opacity", 0);
+
+     el
+     .on('mouseover', function(d) {
+         tooltip.transition()
+           .duration(200)
+           .style("opacity", .9);
+         tooltip.html(d)
+           .style("left", (d3.event.pageX) + "px")
+           .style("top", (d3.event.pageY) + "px");
+      })
+      .on("mouseout", function(d) {
+         tooltip.transition()
+           .duration(500)
+           .style("opacity", 0);
+      });
+}
+
 global.d3.iconGraph = function(selector){
    var element = d3.select(selector);
 
@@ -9,6 +32,7 @@ global.d3.iconGraph = function(selector){
            if(!this.duration)
               this.duration = 1500;
 
+
            if (this.width && this.height) {
              element
                  .style('width', this.width)
@@ -16,12 +40,15 @@ global.d3.iconGraph = function(selector){
                  .style('height', this.height);
 
              var d3graph = element.append('div');
+
              d3graph.style('width', this.width)
              .style('height', this.height)
              .style('position', 'absolute')
              .style('z-index', '1000')
              .style('clip','rect(' + this.height + ' ' + this.width + ' ' + this.height + ' 0px)');
            }
+
+           toolTip(d3graph);
 
            if (this.emptyGraph) element.style('background', 'url(' + this.emptyGraph + ')');
 
@@ -49,8 +76,12 @@ global.d3.barGraph = function(selector) {
       if(!props.duration)
          props.duration = 1500;
 
+      var tooltip = d3.select('.d3-tooltip') || d3.select("body").append("div")
+        .attr("class", "d3-tooltip")
+        .style("opacity", 0);
+
       var yScale = d3.scaleLinear()
-        .domain([0, d3.max(props.data) + 5])
+        .domain([0, d3.max(props.data)])
         .range([0, props.height]);
 
       var xScale = d3.scaleBand()
@@ -75,7 +106,9 @@ global.d3.barGraph = function(selector) {
               return xScale(i);
           })
           .attr('height', 0)
-          .attr('y', props.height);
+          .attr('y', props.height)
+
+      toolTip(myChart);
 
       myChart.transition()
           .attr('height', function(d){
@@ -203,7 +236,7 @@ global.d3.scoreCard = function(selector) {
             if (count > 0) {
                 count--;
                 progress += step;
-                setTimeout(loops, 20);
+                setTimeout(loops, 10);
             }
         })();
       }
